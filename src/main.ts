@@ -5,6 +5,7 @@ import * as tc from '@actions/tool-cache';
 async function run() {
   try {
     core.debug("Downloading Nuget tool");
+    core.debug(`Process platform: ${process.platform}`);
 
     // Download latest Nuget.exe
     const nugetPath = await tc.downloadTool("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe");
@@ -18,7 +19,7 @@ async function run() {
     await core.addPath(fullPath);
 
     // Verify Nuget installed
-    await exec.exec(fullPath);
+    // await exec.exec(fullPath);
 
   } catch (error) {
     core.setFailed(error.message);
