@@ -18,7 +18,7 @@ async function run() {
     await core.addPath(fullPath);
 
     // Verify Nuget installed
-    await exec.exec("nuget");
+    await exec.exec(fullPath);
 
   } catch (error) {
     core.setFailed(error.message);
