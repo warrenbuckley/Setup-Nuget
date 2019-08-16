@@ -12,7 +12,10 @@ async function run() {
 
     // Add Nuget.exe CLI tool to path for
     // Other steps to be able to access it
-    await core.addPath(nugetPath);
+    const fullPath = `${nugetPath}\\nuget.exe`
+    core.debug(`Fullpath ${fullPath}`);
+
+    await core.addPath(fullPath);
 
     // Verify Nuget installed
     await exec.exec("nuget");
