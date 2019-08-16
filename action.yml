@@ -1,10 +1,6 @@
-name: 'Node 12 Template Action'
-description: 'Get started with Node actions'
-author: 'GitHub'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+name: 'Get Nuget.exe'
+description: 'Goes and downloads latest Nuget.exe as CLI tool'
+author: 'Warren Buckley'
 runs:
   using: 'node12'
   main: 'lib/main.js'
