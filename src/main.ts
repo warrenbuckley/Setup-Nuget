@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as tc from '@actions/tool-cache';
+import * as path from 'path';
 import * as fs from 'fs';
 
 async function run() {
@@ -12,15 +13,14 @@ async function run() {
     const nugetPath = await tc.downloadTool("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe");
     core.debug(`Nuget file location ${nugetPath}`);
 
-    // TODO Path join?!
-    // So we get a nuget.exe file not GUID.exe
-    fs.renameSync(nugetPath, `${nugetPath}.exe`)
+    // Rename the file which is a GUID without extension
+    var folder = path.dirname(nugetPath);
+    var fullPath = path.join(folder, "nuget.exe");
+    fs.renameSync(nugetPath, fullPath);
 
     // Add Nuget.exe CLI tool to path for
     // Other steps to be able to access it
-    const fullPath = `${nugetPath}.exe`
     core.debug(`Fullpath ${fullPath}`);
-
     await core.addPath(fullPath);
 
     // Verify Nuget installed
