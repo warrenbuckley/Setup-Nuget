@@ -1,6 +1,9 @@
-name: 'Get Nuget.exe'
-description: 'Goes and downloads latest Nuget.exe as CLI tool'
+name: 'Setup Nuget.exe'
+description: 'Goes and downloads latest Nuget.exe as CLI tool and puts it into the path'
 author: 'Warren Buckley'
 runs:
   using: 'node12'
   main: 'lib/main.js'
+branding:
+  icon: 'download'
+  color: 'blue'
