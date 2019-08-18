@@ -14,7 +14,7 @@ async function run() {
 
     if(directoryToAddToPath){
       core.debug(`Found local cached tool at ${directoryToAddToPath}`);
-      core.addPath(directoryToAddToPath);
+      await core.addPath(directoryToAddToPath);
       return;
     }
 
@@ -30,15 +30,13 @@ async function run() {
     var fullPath = path.join(folder, "nuget.exe");
     fs.renameSync(nugetPath, fullPath);
 
-    tc.cacheDir(folder, "nuget", "latest");
+    var cachedToolDir = await tc.cacheDir(folder, "nuget", "latest");
 
     // Add Nuget.exe CLI tool to path for
     // Other steps to be able to access it
     core.debug(`Fullpath ${fullPath}`);
-    await core.addPath(folder);
-
-    // Verify Nuget installed
-    await exec.exec(fullPath);
+    core.debug(`Cached Tool Dir ${cachedToolDir}`);
+    await core.addPath(cachedToolDir);
 
   } catch (error) {
     core.setFailed(error.message);
