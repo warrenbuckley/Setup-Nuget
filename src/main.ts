@@ -6,6 +6,18 @@ import * as fs from 'fs';
 
 async function run() {
   try {
+
+    let directoryToAddToPath;
+
+    // Try & find tool in cache
+    directoryToAddToPath = await tc.find("nuget", "latest");
+
+    if(directoryToAddToPath){
+      core.debug(`Found local cached tool at ${directoryToAddToPath}`);
+      core.addPath(directoryToAddToPath);
+      return;
+    }
+
     core.debug("Downloading Nuget tool");
     core.debug(`Process platform: ${process.platform}`);
 
@@ -18,10 +30,12 @@ async function run() {
     var fullPath = path.join(folder, "nuget.exe");
     fs.renameSync(nugetPath, fullPath);
 
+    tc.cacheDir(folder, "nuget", "latest");
+
     // Add Nuget.exe CLI tool to path for
     // Other steps to be able to access it
     core.debug(`Fullpath ${fullPath}`);
-    await core.addPath(fullPath);
+    await core.addPath(folder);
 
     // Verify Nuget installed
     await exec.exec(fullPath);
