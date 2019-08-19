@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Setup Nuget.exe
-      uses: warrenbuckley//Get-Nuget-Action@v1-release
+      uses: warrenbuckley/Setup-Nuget@v1
 
     - name: Nuget Push
       run: nuget push *.nupkg
