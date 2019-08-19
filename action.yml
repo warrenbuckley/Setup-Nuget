@@ -6,4 +6,4 @@ runs:
   main: 'lib/main.js'
 branding:
   icon: 'download'
-  color: 'blue'
+  color: 'purple'
