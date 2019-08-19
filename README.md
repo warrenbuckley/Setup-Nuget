@@ -1,9 +1,35 @@
-# JavaScript Action Template
 
-This template offers an easy way to get started writing a javascript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
+# setup-nuget
 
-## Getting Started
+This action setsup Nuget.exe as a CLI tool for use in actions by:
+- optionally downloading and caching a version of nuget.exe and adds to PATH for future steps to use
 
-See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/javascript-action.md).
+# Usage
 
-In addition to walking your through how to create an action, it also provides strategies for versioning, releasing and referencing your actions.
+Basic:
+```yaml
+steps:
+name: ASP.NET CI
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Setup Nuget.exe
+      uses: warrenbuckley//Get-Nuget-Action@v1-release
+
+    - name: Nuget Push
+      run: nuget push *.nupkg
+```
+
+
+# License
+
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
+
+# Contributions
+
+Contributions are welcome!  See [Contributor's Guide](docs/contributors.md)
