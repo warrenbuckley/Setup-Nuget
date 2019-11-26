@@ -2,25 +2,25 @@ import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as exec from '@actions/exec';
 
 async function run() {
   try {
 
-    // Tripple check it's Windows process
-    // Can't install nuget.exe for Ubuntu image etc..
-    const IS_WINDOWS = process.platform === 'win32';
-    if(IS_WINDOWS === false){
-      core.setFailed("Nuget.exe only works for Windows.");
-      return;
+    // Download mono when linux (macos already supports mono)
+    if (process.platform == 'linux') {
+      await exec.exec('sudo apt-get install mono-complete');
     }
 
     // Try & find tool in cache
-    let directoryToAddToPath:string;
+    let directoryToAddToPath: string;
     directoryToAddToPath = await tc.find("nuget", "latest");
 
-    if(directoryToAddToPath){
+    if (directoryToAddToPath) {
       core.debug(`Found local cached tool at ${directoryToAddToPath} adding that to path`);
       await core.addPath(directoryToAddToPath);
+
+      core.exportVariable('NUGET_ROOT', directoryToAddToPath);
       return;
     }
 
@@ -40,6 +40,8 @@ async function run() {
     // Add Nuget.exe CLI tool to path for other steps to be able to access it
     await core.addPath(cachedToolDir);
 
+    //Store Nuget path for Ubuntu and MacOS
+    core.exportVariable('NUGET_ROOT', cachedToolDir);
   } catch (error) {
     core.setFailed(error.message);
   }
