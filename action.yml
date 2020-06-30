@@ -1,6 +1,6 @@
-name: 'Setup Nuget.exe'
-description: 'Goes and downloads latest Nuget.exe as CLI tool and puts it into the path'
-author: 'Warren Buckley'
+name: 'Setup Nuget'
+description: 'Goes and downloads latest Nuget.exe as CLI tool and puts it into the path with support to UNIX environment using Mono. This is based on Warren Buckley repo.'
+author: 'Rickedb'
 runs:
   using: 'node12'
   main: 'lib/main.js'
