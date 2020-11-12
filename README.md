@@ -4,6 +4,10 @@
 This action setsup Nuget.exe as a CLI tool for use in actions by:
 - optionally downloading and caching a version of nuget.exe and adds to PATH for future steps to use
 
+## Status: Archived
+This GitHub action is now retired/archived as I have collobrated directly with Microsoft to release an official MSBuild GitHub Action https://github.com/NuGet/setup-nuget<br/>
+https://github.com/marketplace/actions/setup-nuget-exe-for-use-with-actions
+
 # Usage
 
 Basic:
